@@ -63,7 +63,6 @@ hist(stepsPerDayNoNA$x)
 mean(stepsPerDayNoNA$x)
 median(stepsPerDayNoNA$x)
 ```
-
 After imputing mean value of number of steps in each interval to fill missing values, mean value of number of steps per day has not changed. Median value is now equal to mean value. 
 
 ## Are there differences in activity patterns between weekdays and weekends?

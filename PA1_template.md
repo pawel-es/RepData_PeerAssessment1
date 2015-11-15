@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 ## Loading and preprocessing the data
@@ -18,7 +23,7 @@ stepsPerDay <- aggregate(data$steps, by=list(data$date), FUN=sum)
 hist(stepsPerDay$x)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 Now calculate the mean and median of the total number of steps taken per day:
 
@@ -49,7 +54,7 @@ intervals <- unique(data$interval)
 plot(intervals,avStepsPerInterval$x, type='l')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 Find 5-minute interval, on average across all the days in the dataset, that contains the maximum number of steps:
 
@@ -78,26 +83,6 @@ Using mean value of number of steps in each interval to fill missing values, cre
 
 ```r
 library(dplyr)
-```
-
-```
-## Warning: package 'dplyr' was built under R version 3.1.3
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 dataNoNA <- data %>% group_by(interval) %>% 
             mutate(steps = replace(steps, is.na(steps), mean(steps, na.rm=TRUE)))
 ```
@@ -109,7 +94,7 @@ stepsPerDayNoNA <- aggregate(dataNoNA$steps, by=list(dataNoNA$date), FUN=sum)
 hist(stepsPerDayNoNA$x)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
 
 ```r
 mean(stepsPerDayNoNA$x)
@@ -126,7 +111,6 @@ median(stepsPerDayNoNA$x)
 ```
 ## [1] 10766.19
 ```
-
 After imputing mean value of number of steps in each interval to fill missing values, mean value of number of steps per day has not changed. Median value is now equal to mean value. 
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -152,4 +136,4 @@ avStepsPerIntervalWeekdays <- aggregate(steps ~ dayType + interval,
 xyplot(steps~interval|dayType, data=avStepsPerIntervalWeekdays, type='l', layout=c(1,2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
